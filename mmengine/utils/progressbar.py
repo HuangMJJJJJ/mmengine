@@ -3,7 +3,7 @@ import sys
 from collections.abc import Iterable
 from multiprocessing import Pool
 from shutil import get_terminal_size
-from typing import Callable, Sequence
+from typing import Callable, Iterator, Sequence
 
 from .timer import Timer
 
@@ -113,7 +113,7 @@ def track_progress(func: Callable,
         assert isinstance(tasks[1], int)
         task_num = tasks[1]
         tasks = tasks[0]  # type: ignore
-    elif isinstance(tasks, Sequence):
+    elif isinstance(tasks, (Sequence, Iterable)):
         task_num = len(tasks)
     else:
         raise TypeError(
@@ -182,7 +182,7 @@ def track_parallel_progress(func: Callable,
         assert isinstance(tasks[1], int)
         task_num = tasks[1]
         tasks = tasks[0]  # type: ignore
-    elif isinstance(tasks, Sequence):
+    elif isinstance(tasks, (Sequence, Iterable)):
         task_num = len(tasks)
     else:
         raise TypeError(
@@ -234,7 +234,7 @@ def track_iter_progress(tasks: Sequence, bar_width: int = 50, file=sys.stdout):
         assert isinstance(tasks[1], int)
         task_num = tasks[1]
         tasks = tasks[0]  # type: ignore
-    elif isinstance(tasks, Sequence):
+    elif isinstance(tasks, (Sequence, Iterable)):
         task_num = len(tasks)
     else:
         raise TypeError(
