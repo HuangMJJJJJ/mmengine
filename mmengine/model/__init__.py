@@ -33,6 +33,8 @@ __all__ = [
     'convert_sync_batchnorm', 'BaseTTAModel'
 ]
 
-if digit_version(TORCH_VERSION) >= digit_version('2.0.0'):
+from ..dist import is_distributed
+
+if digit_version(TORCH_VERSION) >= digit_version('2.0.0') and is_distributed():
     from .wrappers import MMFullyShardedDataParallel  # noqa:F401
     __all__.append('MMFullyShardedDataParallel')
